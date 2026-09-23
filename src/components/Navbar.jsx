@@ -8,17 +8,11 @@ import { useFitLog } from "@/context/FitLogContext";
 export default function Navbar() {
   const pathname = usePathname();
 
-  const {
-    planCount,
-    savedCount,
-  } = useFitLog();
+  const { planCount, savedCount } = useFitLog();
 
-  const isWorkoutsActive =
-    pathname === "/" ||
-    pathname.startsWith("/workout/");
+  const isWorkoutsActive = pathname === "/" || pathname.startsWith("/workout/");
 
-  const isPlanActive =
-    pathname === "/my-plan";
+  const isPlanActive = pathname === "/my-plan";
 
   return (
     <header className="border-b border-[#20252e] bg-[#0b0d10]">
@@ -30,11 +24,7 @@ export default function Navbar() {
             className="flex shrink-0 items-center gap-2"
             aria-label="FitLog home"
           >
-            <Dumbbell
-              size={18}
-              strokeWidth={2.5}
-              className="text-[#ccff00]"
-            />
+            <Dumbbell size={18} strokeWidth={2.5} className="text-[#ccff00]" />
 
             <span className="text-sm font-extrabold uppercase tracking-[-0.03em] text-white">
               FitLog
@@ -67,11 +57,8 @@ export default function Navbar() {
           </nav>
 
           {/* Counters */}
-          <div className="flex shrink-0 items-center gap-3">
-            <Link
-              href="/my-plan"
-              className="group flex items-center gap-1.5"
-            >
+          <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+            <Link href="/my-plan" className="group flex items-center gap-1.5">
               <span className="text-[9px] font-medium text-[#858d9b] transition-colors group-hover:text-white">
                 Plan
               </span>
@@ -81,10 +68,7 @@ export default function Navbar() {
               </span>
             </Link>
 
-            <Link
-              href="/my-plan"
-              className="group flex items-center gap-1.5"
-            >
+            <Link href="/my-plan" className="group flex items-center gap-1.5">
               <span className="text-[9px] font-medium text-[#858d9b] transition-colors group-hover:text-white">
                 Saved
               </span>
@@ -112,9 +96,7 @@ export default function Navbar() {
           <Link
             href="/my-plan"
             className={`rounded-full px-4 py-2 text-[9px] font-semibold ${
-              isPlanActive
-                ? "bg-[#142000] text-[#ccff00]"
-                : "text-[#858d9b]"
+              isPlanActive ? "bg-[#142000] text-[#ccff00]" : "text-[#858d9b]"
             }`}
           >
             My Plan

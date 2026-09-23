@@ -1,12 +1,9 @@
-import Hero from "@/components/Hero";
-import WorkoutLibrary from "@/components/WorkoutLibrary";
-
-export default function Home() {
+export default function HomePage() {
   return (
-    <main className="min-h-screen bg-[#0b0d10]">
-      <Hero />
+    <main className="bg-[#0b0d10]">
+      {/* Hero */}
 
-      <WorkoutLibrary />
+      {/* Library */}
     </main>
   );
 }

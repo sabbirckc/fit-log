@@ -1,14 +1,13 @@
 import "./globals.css";
+
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import { FitLogProvider } from "@/context/FitLogContext";
 
 export const metadata = {
   title: "FitLog — Workout Library",
   description:
     "FitLog is a dark, no-nonsense workout companion for discovering, planning, and tracking your workouts.",
-  icons: {
-    icon: "/images/logo.png",
-  },
 };
 
 export default function RootLayout({ children }) {
@@ -16,9 +15,15 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <FitLogProvider>
-          <Navbar />
+          <div className="flex min-h-screen flex-col">
+            <Navbar />
 
-          {children}
+            <div className="flex-1">
+              {children}
+            </div>
+
+            <Footer />
+          </div>
         </FitLogProvider>
       </body>
     </html>
