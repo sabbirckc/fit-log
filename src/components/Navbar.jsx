@@ -1,48 +1,53 @@
 "use client";
 
 import Link from "next/link";
-import { Dumbbell, ChevronDown } from "lucide-react";
+import { Dumbbell } from "lucide-react";
 import { usePathname } from "next/navigation";
+import { useFitLog } from "@/context/FitLogContext";
 
 export default function Navbar() {
   const pathname = usePathname();
 
-  const planCount = 0;
-  const savedCount = 0;
+  const {
+    planCount,
+    savedCount,
+  } = useFitLog();
 
-  const isWorkoutActive =
-    pathname === "/" || pathname.startsWith("/workout");
+  const isWorkoutsActive =
+    pathname === "/" ||
+    pathname.startsWith("/workout/");
 
-  const isPlanActive = pathname.startsWith("/my-plan");
+  const isPlanActive =
+    pathname === "/my-plan";
 
   return (
-    <header className="border-b border-[#1d222b] bg-[#0b0d10]">
+    <header className="border-b border-[#20252e] bg-[#0b0d10]">
       <div className="fitlog-container">
-        <nav className="flex h-[72px] items-center justify-between gap-4">
+        <div className="flex min-h-[68px] items-center justify-between gap-4">
           {/* Logo */}
           <Link
             href="/"
             className="flex shrink-0 items-center gap-2"
             aria-label="FitLog home"
           >
-            <img
-              src="/images/logo.png"
-              alt=""
-              className="h-6 w-6 object-contain"
+            <Dumbbell
+              size={18}
+              strokeWidth={2.5}
+              className="text-[#ccff00]"
             />
 
-            <span className="text-[15px] font-extrabold tracking-[-0.03em] text-white">
-              FITLOG
+            <span className="text-sm font-extrabold uppercase tracking-[-0.03em] text-white">
+              FitLog
             </span>
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden items-center gap-2 sm:flex">
+          {/* Navigation */}
+          <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-1 sm:flex">
             <Link
               href="/"
-              className={`rounded-full px-4 py-2 text-[11px] font-medium transition-colors ${
-                isWorkoutActive
-                  ? "bg-[#151b0b] text-[#ccff00]"
+              className={`rounded-full px-5 py-2 text-[10px] font-semibold transition-colors ${
+                isWorkoutsActive
+                  ? "bg-[#142000] text-[#ccff00]"
                   : "text-[#858d9b] hover:text-white"
               }`}
             >
@@ -51,109 +56,69 @@ export default function Navbar() {
 
             <Link
               href="/my-plan"
-              className={`rounded-full px-4 py-2 text-[11px] font-medium transition-colors ${
+              className={`rounded-full px-5 py-2 text-[10px] font-semibold transition-colors ${
                 isPlanActive
-                  ? "bg-[#151b0b] text-[#ccff00]"
+                  ? "bg-[#142000] text-[#ccff00]"
                   : "text-[#858d9b] hover:text-white"
               }`}
             >
               My Plan
             </Link>
-          </div>
+          </nav>
 
-          {/* Desktop Counters */}
-          <div className="hidden items-center gap-4 sm:flex">
+          {/* Counters */}
+          <div className="flex shrink-0 items-center gap-3">
             <Link
               href="/my-plan"
-              className="flex items-center gap-2 text-[10px] text-[#858d9b] transition-colors hover:text-white"
+              className="group flex items-center gap-1.5"
             >
-              <span>Plan</span>
+              <span className="text-[9px] font-medium text-[#858d9b] transition-colors group-hover:text-white">
+                Plan
+              </span>
 
-              <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-[#ccff00] px-1.5 text-[9px] font-bold text-black">
+              <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-[#ccff00] px-1.5 text-[9px] font-extrabold text-black">
                 {planCount}
               </span>
             </Link>
 
             <Link
               href="/my-plan"
-              className="flex items-center gap-2 text-[10px] text-[#858d9b] transition-colors hover:text-white"
+              className="group flex items-center gap-1.5"
             >
-              <span>Saved</span>
+              <span className="text-[9px] font-medium text-[#858d9b] transition-colors group-hover:text-white">
+                Saved
+              </span>
 
-              <span className="flex h-5 min-w-5 items-center justify-center rounded-full border border-[#353b46] px-1.5 text-[9px] font-medium text-[#a4abb6]">
+              <span className="flex h-5 min-w-5 items-center justify-center rounded-full border border-[#303640] px-1.5 text-[9px] font-semibold text-[#b5bbc5] transition-colors group-hover:border-[#59616d]">
                 {savedCount}
               </span>
             </Link>
           </div>
+        </div>
 
-          {/* Mobile Menu */}
-          <div className="sm:hidden">
-            <div className="dropdown dropdown-end">
-              <button
-                type="button"
-                tabIndex={0}
-                className="btn btn-ghost btn-sm h-9 min-h-9 border border-[#252b35] bg-[#11141a] px-3 text-[#858d9b] hover:bg-[#151922] hover:text-white"
-                aria-label="Open navigation menu"
-              >
-                <span className="text-xs">Menu</span>
-                <ChevronDown size={14} />
-              </button>
+        {/* Mobile Navigation */}
+        <nav className="flex items-center justify-center gap-1 border-t border-[#20252e] py-2 sm:hidden">
+          <Link
+            href="/"
+            className={`rounded-full px-4 py-2 text-[9px] font-semibold ${
+              isWorkoutsActive
+                ? "bg-[#142000] text-[#ccff00]"
+                : "text-[#858d9b]"
+            }`}
+          >
+            Workouts
+          </Link>
 
-              <ul
-                tabIndex={0}
-                className="menu dropdown-content z-[50] mt-3 w-48 rounded-xl border border-[#252b35] bg-[#11141a] p-2 shadow-2xl"
-              >
-                <li>
-                  <Link
-                    href="/"
-                    className={
-                      isWorkoutActive
-                        ? "text-[#ccff00]"
-                        : "text-[#858d9b]"
-                    }
-                  >
-                    <Dumbbell size={15} />
-                    Workouts
-                  </Link>
-                </li>
-
-                <li>
-                  <Link
-                    href="/my-plan"
-                    className={
-                      isPlanActive
-                        ? "text-[#ccff00]"
-                        : "text-[#858d9b]"
-                    }
-                  >
-                    My Plan
-                  </Link>
-                </li>
-
-                <li className="my-1 border-t border-[#252b35]" />
-
-                <li>
-                  <Link href="/my-plan">
-                    <span>Plan</span>
-
-                    <span className="ml-auto rounded-full bg-[#ccff00] px-2 py-0.5 text-[9px] font-bold text-black">
-                      {planCount}
-                    </span>
-                  </Link>
-                </li>
-
-                <li>
-                  <Link href="/my-plan">
-                    <span>Saved</span>
-
-                    <span className="ml-auto rounded-full border border-[#353b46] px-2 py-0.5 text-[9px] text-[#a4abb6]">
-                      {savedCount}
-                    </span>
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          </div>
+          <Link
+            href="/my-plan"
+            className={`rounded-full px-4 py-2 text-[9px] font-semibold ${
+              isPlanActive
+                ? "bg-[#142000] text-[#ccff00]"
+                : "text-[#858d9b]"
+            }`}
+          >
+            My Plan
+          </Link>
         </nav>
       </div>
     </header>
